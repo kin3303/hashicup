@@ -120,61 +120,20 @@ $ helm template my-hashicup hashicup --namespace plateer  | yamllint -
   606:1     warning  trailing spaces  (trailing-spaces)
   618:1     warning  trailing spaces  (trailing-spaces)
 $ cat -n <(helm template my-hashicup hashicup --namespace plateer)
-```
+``` 
 
-### Step 4. Chart 패키지 및 Harbor 에 업로드
-
-- 먼저 Harbor 레포지토리에 hashicup 이라는 프로젝트를 만든다.
-- Chart 패키징 및 패키징된 Chart 를 Harbor 에 업로드 한다. (아래 코드 참조)
+### Step 4. Chart 설치 및 테스트
 
 ```console
-######################################################################
-# Add Repository 
-######################################################################
-$ helm repo add hashicup-repo https://<YOUR_HARBOR_DOMAIN>/chartrepo/hashicup --username=<HARBOR_USER_NAME> --password=<HARBOR_PASSWORD>
-
-######################################################################
-# Package Helm Chart 
-######################################################################
-$  ls
-hashicup
-$ helm package hashicup/
-Successfully packaged chart and saved it to: /home/ec2-user/helm_test/hashicup-0.1.0.tgz
-$  ls
-hashicup hashicup-0.1.0.tgz
-
-######################################################################
-# Upload Helm Chart 
-######################################################################
-$  helm cm-push hashicup-0.1.0.tgz  hashicup-repo --username=<HARBOR_USER_NAME> --password=<HARBOR_PASSWORD>
  
-```
-
-### Step 5. Chart 설치 및 테스트
-
-- 먼저 Harbor 레포지토리에 hashicup 이라는 프로젝트를 만든다.
-- Chart 패키징 및 패키징된 Chart 를 Harbor 에 업로드 한다. (아래 코드 참조)
-
-```console
-######################################################################
-# 레포지터리 업데이트 및 확인
-######################################################################
-$ cd ..
-$ mkdir hashicup-from-harbor
-$ cd hashicup-from-harbor
-$ helm repo update
-$ helm search repo hashicup-repo -l 
-NAME                            CHART VERSION   APP VERSION     DESCRIPTION                
-hashicup-repo/hashicup        0.1.0           5.0.0          A Helm chart for Kubernetes
-
 ######################################################################
 # 차트 설치
 ######################################################################
 $ kubectl create ns plateer
-$ helm install my-hashicup hashicup-repo/hashicup --version 0.1.0 --namespace plateer  --wait
+$ helm install my-hashicup hashicup/ --version 0.1.0 --namespace plateer  --wait
 $ kubectl get all -n plateer
-$ kubectl port-forward service/my-hashicup -n plateer  8080:80 --address 0.0.0.0
-http://<호스트_IP>:8080 으로 접속하여 데이터 입력
+$ kubectl port-forward service/nginx -n plateer  8080:80 --address 0.0.0.0
+http://<호스트_IP>:8080 으로 접속하여 확인
  
 
 ######################################################################
