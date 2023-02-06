@@ -142,4 +142,3 @@ http://<호스트_IP>:8080 으로 접속하여 확인
 $ helm uninstall my-hashicup -n plateer
 $ kubectl delete ns plateer
 ```
-  
