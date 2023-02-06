@@ -134,6 +134,9 @@ $ helm install my-hashicup hashicup/ --version 0.1.0 --namespace plateer  --wait
 $ kubectl get all -n plateer
 $ kubectl port-forward service/nginx -n plateer  8080:80 --address 0.0.0.0
 http://<호스트_IP>:8080 으로 접속하여 확인
+
+$ kubectl port-forward service/consul-server --namespace consul 8501:8501 --address 0.0.0.0
+https://<CLIENT_IP>:8501/ui  으로 접속하여 Consul 확인
  
 
 ######################################################################
