@@ -1,7 +1,7 @@
 apiVersion: consul.hashicorp.com/v1alpha1
 kind: IngressGateway
 metadata:
-  name: ingress-gateway
+  name: ingress-gateway-hashicup
   namespace: consul
 spec:
   listeners:
