@@ -1,7 +1,7 @@
 apiVersion: consul.hashicorp.com/v1alpha1
 kind: ServiceIntentions
 metadata:
-  name: public-api
+  name: public-api-hashicup
 spec:
   sources:
     - name: nginx
@@ -12,7 +12,7 @@ spec:
 apiVersion: consul.hashicorp.com/v1alpha1
 kind: ServiceIntentions
 metadata:
-  name: products-api
+  name: products-api-hashicup
 spec:
   sources:
     - name: public-api
@@ -26,7 +26,7 @@ metadata:
   name: payments
 spec:
   sources:
-    - name: public-api
+    - name: public-api-hashicup
       action: allow
   destination:
     name: payments
@@ -37,7 +37,7 @@ metadata:
   name: postgres
 spec:
   sources:
-    - name: products-api
+    - name: products-api-hashicup
       action: allow
   destination:
     name: postgres
@@ -45,21 +45,10 @@ spec:
 apiVersion: consul.hashicorp.com/v1alpha1
 kind: ServiceIntentions
 metadata:
-  name: frontend
+  name: frontend-hashicup
 spec:
   sources:
     - name: nginx
       action: allow
   destination:
     name: frontend
----
-apiVersion: consul.hashicorp.com/v1alpha1
-kind: ServiceIntentions
-metadata:
-  name: deny-all
-spec:
-  destination:
-    name: '*'
-  sources:
-    - name: '*'
-      action: deny
